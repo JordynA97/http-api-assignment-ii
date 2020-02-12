@@ -1,7 +1,7 @@
-//empty object
+// empty object
 const users = {};
 
-//basic methods from what we learned in class to get users, etc
+// basic methods from what we learned in class to get users, etc
 const respondJSON = (request, response, status, object) => {
   response.writeHead(status, { 'Content-Type': 'application/json' });
   response.write(JSON.stringify(object));
@@ -27,7 +27,6 @@ const notFoundMeta = (request, response) => respondJSONMeta(request, response, 4
 
 
 const addUser = (request, response, body) => {
-  
   const responseJSON = {
     message: 'Name and age are both required.',
   };
@@ -37,21 +36,20 @@ const addUser = (request, response, body) => {
     return respondJSON(request, response, 400, responseJSON);
   }
 
-  
+
   let responseCode = 201;
 
   if (users[body.name]) {
     responseCode = 204;
   } else {
-    
     users[body.name] = {};
   }
 
-  
+
   users[body.name].name = body.name;
   users[body.name].age = body.age;
 
-  
+
   if (responseCode === 201) {
     responseJSON.message = 'Created Successfully';
     return respondJSON(request, response, responseCode, responseJSON);
@@ -65,11 +63,11 @@ const notFound = (request, response) => {
     id: 'notFound',
   };
 
-  
+
   respondJSON(request, response, 404, responseJSON);
 };
 
-//export methods
+// export methods
 module.exports = {
   getUsers,
   addUser,

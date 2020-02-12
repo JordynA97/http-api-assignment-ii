@@ -10,7 +10,6 @@
   //parse the json
   const parseJSON = (xhr, content) => {
     const object = JSON.parse(xhr.response);
-    console.dir(obj);
 
     if(object.message){
       const p = document.createElement('p');
@@ -28,32 +27,26 @@
 
   const responseHandler = (xhr, parseResponse) => {
     const content = document.querySelector('#content');
-    
+
     switch(xhr.status){
       case 200:
-        content.innerHTML = `<b>Success</b>`;
+        content.innerHTML = `<b>Success! Status Code: 200</b>`;
         break;
       case 201:
-        content.innerHTML = `<b>Created</b>`;
+        content.innerHTML = `<b>Created! Status Code: 201</b>`;
         break;
       case 204:
-        content.innerHTML = `<b>Updated with no content</b>`;
+        content.innerHTML = `<b>Updated with no content! Status Code: 204</b>`;
         break;
       case 400:
-        content.innerHTML = `<b>Bad Request</b>`;
+        content.innerHTML = `<b>Bad Request! Status Code: 400. Make sure all fields are filled</b>`;
         break;
       case 404:
-        content.innerHTML = `<b>Resource Not Found</b>`;
+        content.innerHTML = `<b>Resource Not Found! Status Code: 404</b>`;
         break;
       default:
-        content.innerHTML = `<b>Error code not impemented</b>`;
+        content.innerHTML = `<b>Error code not impemented!</b>`;
         break;
-    }
-
-    if(xhr.status != 204 && parseResponse){
-      parseJSON(xhr, content);
-    }else{
-      console.log('received');
     }
   };
 
@@ -61,9 +54,10 @@
     const nameAction = nameForm.getAttribute('action');
     const nameMethod = nameForm.getAttribute('method');
 
-    const name = nameForm.getElementById('nameField');
-    const age = nameForm.getElementById('ageField');
+    const name = nameForm.querySelector('#nameField');
+    const age = nameForm.querySelector('#ageField');
 
+    //have to set up for a new request
     const xhr = new XMLHttpRequest();
 
     xhr.open(nameMethod, nameAction);
@@ -79,8 +73,8 @@
 
   const sendGetMethod = (e, nameForm) => {
     const userMethod = userForm.getAttribute('method');
-    const url = userForm.getElementById('urlField');
-    const method = userForm.getElementById('methodSelect');
+    const url = userForm.querySelector('#urlField');
+    const method = userForm.querySelector('#methodSelect');
 
     const xhr = new XMLHttpRequest();
     xhr.open(method.value, url.value);
@@ -134,6 +128,7 @@
     </form>
   </section>
   <section id="content">
+    <p id=></p>
   </section>
 </body>
 </html>
